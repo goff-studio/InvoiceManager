@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* starterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* starterTests.m */; };
 		0C80B921A6F3F58F76C31292 /* libPods-starter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-starter.a */; };
+		10EC532A9A344258A580D515 /* Spartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66703ED71EEB48BEBA9C908C /* Spartan-Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-starter-starterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-starter-starterTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		10EC532A9A344258A580D515 /* Spartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66703ED71EEB48BEBA9C908C /* Spartan-Bold.ttf */; };
 		B6726FBF62F849E68CA62B98 /* Spartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C1B225D16364C48933D4C55 /* Spartan-Medium.ttf */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +32,7 @@
 		00E356EE1AD99517003FC87E /* starterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* starterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = starterTests.m; sourceTree = "<group>"; };
+		0C1B225D16364C48933D4C55 /* Spartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Medium.ttf"; path = "../src/assets/fonts/Spartan-Medium.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* starter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = starter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = starter/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = starter/AppDelegate.mm; sourceTree = "<group>"; };
@@ -43,11 +44,10 @@
 		5709B34CF0A7D63546082F79 /* Pods-starter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-starter.release.xcconfig"; path = "Target Support Files/Pods-starter/Pods-starter.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-starter-starterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-starter-starterTests.debug.xcconfig"; path = "Target Support Files/Pods-starter-starterTests/Pods-starter-starterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-starter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-starter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		66703ED71EEB48BEBA9C908C /* Spartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Bold.ttf"; path = "../src/assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = starter/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-starter-starterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-starter-starterTests.release.xcconfig"; path = "Target Support Files/Pods-starter-starterTests/Pods-starter-starterTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		66703ED71EEB48BEBA9C908C /* Spartan-Bold.ttf */ = {isa = PBXFileReference; name = "Spartan-Bold.ttf"; path = "../src/assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0C1B225D16364C48933D4C55 /* Spartan-Medium.ttf */ = {isa = PBXFileReference; name = "Spartan-Medium.ttf"; path = "../src/assets/fonts/Spartan-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,14 +154,14 @@
 			sourceTree = "<group>";
 		};
 		E2BDE6560FA545729C84999C /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				66703ED71EEB48BEBA9C908C /* Spartan-Bold.ttf */,
 				0C1B225D16364C48933D4C55 /* Spartan-Medium.ttf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
 			path = "";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
