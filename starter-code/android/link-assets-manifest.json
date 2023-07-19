@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Spartan-Bold.ttf",
+      "sha1": "d74f0c90dee3976e1b3bd1445fadea09450f0069"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-Medium.ttf",
+      "sha1": "8922eb3082f247ef6a2f9260c7c71a39d0dcd454"
+    }
+  ]
+}
