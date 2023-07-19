@@ -60,6 +60,12 @@ export interface ScreenProps extends ViewProps {
   footer?: ReactNode;
 }
 
+export interface InputProps extends Omit<ViewProps, 'style'> {
+  containerStyle?: ViewStyle;
+  labelStyle?: TextStyle;
+  label?: string;
+}
+
 export interface ViewProps extends RNViewProps {
   center?: boolean;
   backgroundColor?: ColorValue;
