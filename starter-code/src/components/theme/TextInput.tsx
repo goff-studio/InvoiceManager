@@ -4,6 +4,7 @@ import {themeConfig} from '../../configs/themeConfig';
 import {usePalette} from '../../hooks/usePalette';
 import {FontFamilyValue, TextInputProps} from '../../types/theme';
 import {InputContainer} from '../InputContainer';
+import {convertToRgba} from '../../utils/theme';
 
 export const TextInput: React.FC<TextInputProps> = ({
   paddingVertical = themeConfig.padding.medium / 2,
@@ -45,7 +46,11 @@ export const TextInput: React.FC<TextInputProps> = ({
       label={label}
       labelStyle={labelStyle}
       paddingVertical={paddingVertical}>
-      <RNTextInput {...props} style={[styles.textInputContainer, style]} />
+      <RNTextInput
+        placeholderTextColor={convertToRgba(palette.textSecondary, 0.3)}
+        {...props}
+        style={[styles.textInputContainer, style]}
+      />
     </InputContainer>
   );
 };

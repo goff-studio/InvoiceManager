@@ -54,11 +54,13 @@ export const InvoicesFormScreen = () => {
         Bill to
       </Text>
       <TextInput
+        placeholder={'John Smith'}
         value={formData[InvoiceFormEnum.clientName]}
         label={"Client's Name"}
         onChangeText={t => changeFormData(InvoiceFormEnum.clientName, t)}
       />
       <TextInput
+        placeholder={'info@example.com'}
         value={formData[InvoiceFormEnum.clientEmail]}
         label={"Client's Email"}
         onChangeText={t => changeFormData(InvoiceFormEnum.clientEmail, t)}
@@ -69,6 +71,7 @@ export const InvoicesFormScreen = () => {
         type={InvoiceFormEnum.senderAddress}
       />
       <Calendar
+        placeholder={'Please select'}
         value={formData.createdAt}
         onChange={(date: string) =>
           changeFormData(InvoiceFormEnum.createdAt, date)
