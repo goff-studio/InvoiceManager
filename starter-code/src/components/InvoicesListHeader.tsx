@@ -31,6 +31,7 @@ export const InvoicesListHeader: React.FC<InvoicesListHeaderProps> = React.memo(
         </View>
         <View row alignItems={'center'}>
           <DropDown
+            borderColor={'transparent'}
             showReset
             resetLabel={'Show all'}
             initialValue={initialFilter}

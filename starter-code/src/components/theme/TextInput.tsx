@@ -14,6 +14,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   containerStyle,
   style,
   labelStyle,
+  error,
   label,
   ...props
 }) => {
@@ -25,7 +26,9 @@ export const TextInput: React.FC<TextInputProps> = ({
         backgroundColor: palette.backgroundSecondary,
         borderRadius: themeConfig.radius.xSmall,
         borderWidth: 1,
-        borderColor: palette.backgroundDisabled,
+        borderColor: error
+          ? themeConfig.colors.accent2
+          : palette.backgroundDisabled,
         color: palette.textPrimary,
         paddingHorizontal: themeConfig.padding.semiSmall,
         fontFamily: FontFamilyValue.BOLD,
@@ -33,6 +36,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       },
     });
   }, [
+    error,
     palette.backgroundDisabled,
     palette.backgroundSecondary,
     palette.textPrimary,

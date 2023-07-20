@@ -15,12 +15,10 @@ export const FooterDraftSubmit: React.FC<FooterDraftSubmitProps> = ({
 
   const handleDraft = () => {
     !!onDraft && onDraft();
-    navigation.goBack();
   };
 
   const handleSubmit = () => {
     !!onSubmit && onSubmit();
-    navigation.goBack();
   };
 
   return (

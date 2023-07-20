@@ -21,6 +21,7 @@ export const Calendar: React.FC<CalendarProps> = ({
   value,
   placeholder,
   onChange,
+  error,
   ...props
 }) => {
   const [isPickerVisible, setIsPickerVisible] = useState<boolean>();
@@ -40,6 +41,10 @@ export const Calendar: React.FC<CalendarProps> = ({
           onPress={handleOpen}
           borderRadius={themeConfig.radius.xSmall}
           {...props}
+          borderColor={
+            error ? themeConfig.colors.accent2 : palette.backgroundDisabled
+          }
+          borderWidth={1}
           paddingHorizontal={themeConfig.padding.semiSmall}
           backgroundColor={backgroundColor || palette.backgroundSecondary}
           row

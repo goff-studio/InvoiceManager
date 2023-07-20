@@ -7,13 +7,12 @@ import {NavigationParamsList, NavigationScreens} from '../types/navigation';
 import {StyleSheet} from 'react-native';
 import {usePalette} from '../hooks/usePalette';
 import {InvoiceFormAddress} from '../components/InvoiceFormAddress';
-import {Invoice, InvoiceFormEnum} from '../types/invoice';
+import {InvoiceFormEnum} from '../types/invoice';
 import {InvoiceFormTerms} from '../components/InvoiceFormTerms';
 import {useInvoiceForm} from '../hooks/useInvoiceForm';
 import {InvoiceFormItems} from '../components/InvoiceFormItems';
 import {Calendar} from '../components/theme/Calendar';
 import {FooterDraftSubmit} from '../components/FooterDraftSubmit';
-import {useInvoices} from '../hooks/useInvoices';
 import {initialInvoiceAddress} from '../configs/invoiceConfig';
 import {FooterSubmit} from '../components/FooterSubmit';
 
@@ -23,23 +22,34 @@ type InvoiceFormScreenProps = RouteProp<
 >;
 export const InvoicesFormScreen = () => {
   const {params} = useRoute<InvoiceFormScreenProps>();
-  const {formData, changeFormData, changeItemValues, addItem, deleteItem} =
-    useInvoiceForm(params);
-  const {saveDraft, submitInvoice} = useInvoices();
+  const {
+    formData,
+    changeFormData,
+    changeItemValues,
+    addItem,
+    deleteItem,
+    errors,
+    draftForm,
+    submitForm,
+  } = useInvoiceForm(params);
   const {palette} = usePalette();
+  console.info(errors);
+
   const isEdit = Object.keys(params).length > 1;
-  const isValid = false;
+  const senderAddressErrors = errors.filter(item =>
+    item.includes(InvoiceFormEnum.senderAddress),
+  );
+  const clientAddressErrors = errors.filter(item =>
+    item.includes(InvoiceFormEnum.clientAddress),
+  );
+  const itemsErrors = errors.filter(item =>
+    item.includes(InvoiceFormEnum.items),
+  );
+
   const renderDraftFooter = (
-    <FooterDraftSubmit
-      onDraft={() => saveDraft(formData)}
-      onSubmit={() => isValid && submitInvoice(formData as Invoice)}
-    />
+    <FooterDraftSubmit onDraft={draftForm} onSubmit={submitForm} />
   );
-  const renderFooter = (
-    <FooterSubmit
-      onSubmit={() => isValid && submitInvoice(formData as Invoice)}
-    />
-  );
+  const renderFooter = <FooterSubmit onSubmit={submitForm} />;
 
   return (
     <Screen scrollable footer={isEdit ? renderFooter : renderDraftFooter}>
@@ -60,6 +70,7 @@ export const InvoicesFormScreen = () => {
         Bill from
       </Text>
       <InvoiceFormAddress
+        errors={senderAddressErrors}
         onChange={changeFormData}
         value={formData?.senderAddress || initialInvoiceAddress}
         type={InvoiceFormEnum.senderAddress}
@@ -71,36 +82,48 @@ export const InvoicesFormScreen = () => {
         Bill to
       </Text>
       <TextInput
+        error={errors.includes(InvoiceFormEnum.clientName)}
         placeholder={'John Smith'}
         value={formData[InvoiceFormEnum.clientName]}
         label={"Client's Name"}
         onChangeText={t => changeFormData(InvoiceFormEnum.clientName, t)}
       />
       <TextInput
+        error={errors.includes(InvoiceFormEnum.clientEmail)}
         placeholder={'info@example.com'}
         value={formData[InvoiceFormEnum.clientEmail]}
         label={"Client's Email"}
         onChangeText={t => changeFormData(InvoiceFormEnum.clientEmail, t)}
       />
       <InvoiceFormAddress
+        errors={clientAddressErrors}
         onChange={changeFormData}
         value={formData?.clientAddress || initialInvoiceAddress}
         type={InvoiceFormEnum.clientAddress}
       />
       <Calendar
+        label={'Issue date'}
+        error={errors.includes(InvoiceFormEnum.createdAt)}
         placeholder={'Please select'}
         value={formData.createdAt}
         onChange={(date: string) =>
           changeFormData(InvoiceFormEnum.createdAt, date)
         }
       />
-      <InvoiceFormTerms onChange={changeFormData} invoice={formData} />
+      <InvoiceFormTerms
+        onChange={changeFormData}
+        invoice={formData}
+        error={errors.includes(InvoiceFormEnum.paymentTerms)}
+      />
       <TextInput
+        placeholder={'App development'}
+        error={errors.includes(InvoiceFormEnum.description)}
         label={'Project Description'}
         value={formData[InvoiceFormEnum.description]}
         onChangeText={t => changeFormData(InvoiceFormEnum.description, t)}
       />
       <InvoiceFormItems
+        errors={itemsErrors}
         items={formData?.items || []}
         onChange={changeItemValues}
         onAddPress={addItem}

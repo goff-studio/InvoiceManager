@@ -154,6 +154,7 @@ export interface DropDownProps extends Omit<ViewProps, 'onPress'> {
   initialValue?: string;
   showReset?: boolean;
   resetLabel?: string;
+  error?: boolean;
 }
 
 export interface TextInputProps extends InputProps, RNTextInputProps {
@@ -163,6 +164,7 @@ export interface TextInputProps extends InputProps, RNTextInputProps {
   marginRight?: DimensionValue;
   containerStyle?: ViewStyle;
   labelStyle?: TextStyle;
+  error?: boolean;
   label?: string;
 }
 
@@ -171,4 +173,5 @@ export interface CalendarProps extends ViewProps {
   value?: string;
   placeholder?: string;
   onChange: (date: string) => unknown;
+  error?: boolean;
 }

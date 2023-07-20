@@ -90,6 +90,7 @@ export interface InvoiceFormAddressProps extends ViewProps {
   ) => unknown;
   type: InvoiceFormEnum.senderAddress | InvoiceFormEnum.clientAddress;
   value?: InvoiceAddress;
+  errors?: string[];
 }
 
 export interface InvoiceFormTermsProps extends ViewProps {
@@ -98,6 +99,7 @@ export interface InvoiceFormTermsProps extends ViewProps {
     value: string | number,
   ) => unknown;
   invoice: InvoiceDraft;
+  error?: boolean;
 }
 
 export type TermsOptionType = {
@@ -109,6 +111,7 @@ export interface InvoiceFormItemsProps extends ViewProps {
   items: InvoiceItem[];
   onAddPress: () => unknown;
   onDeletePress: (i: number) => unknown;
+  errors?: string[];
   onChange: (
     index: number,
     value: string,

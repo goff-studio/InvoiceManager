@@ -9,6 +9,7 @@ import {invoiceTermsOptions} from '../configs/invoiceConfig';
 
 export const InvoiceFormTerms: React.FC<InvoiceFormTermsProps> = ({
   onChange,
+  error,
   invoice,
 }) => {
   const handleChange = (label: string | undefined) => {
@@ -25,6 +26,7 @@ export const InvoiceFormTerms: React.FC<InvoiceFormTermsProps> = ({
   );
   return (
     <DropDown
+      error={error}
       initialValue={initialValue?.label || undefined}
       placeholder={'Please select'}
       label={'Payment Terms'}

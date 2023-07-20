@@ -2,9 +2,11 @@ import {
   calculateItemTotal,
   calculatePaymentDue,
   capitalizeFirstChar,
+  findFormErrors,
   generateId,
   groupDigits,
   isValidDate,
+  isValidEmail,
 } from '../utils/invoices';
 import {describe, expect, test} from '@jest/globals';
 import {InvoiceActionTypes, InvoiceDraft} from '../types/invoice';
@@ -16,6 +18,7 @@ import {
 import {legacy_createStore as createStore} from 'redux';
 import {rootReducer} from '../redux/reducers';
 import {dateConfig} from '../configs/dateConfig';
+import sample from '../../data.json';
 
 describe('generateId', () => {
   test('generates a string with 2 random uppercase letters followed by 4 random numbers', () => {
@@ -192,5 +195,107 @@ describe('calculateItemTotal', () => {
     expect(calculateItemTotal('   2   ', ' 15')).toBe(30); // 2 * 15 = 30
     expect(calculateItemTotal('  3', '   7   ')).toBe(21); // 3 * 7 = 21
     expect(calculateItemTotal('  0', '   5')).toBe(0); // 0 * 5 = 0
+  });
+});
+
+describe('isValidEmail', () => {
+  test('should return true for valid email addresses', () => {
+    expect(isValidEmail('test@example.com')).toBe(true);
+    expect(isValidEmail('john.doe@example.co.uk')).toBe(true);
+    expect(isValidEmail('info+test@example.net')).toBe(true);
+  });
+
+  test('should return false for invalid email addresses', () => {
+    expect(isValidEmail('test@')).toBe(false); // Missing domain
+    expect(isValidEmail('@example.com')).toBe(false); // Missing username
+    expect(isValidEmail('test@example')).toBe(false); // Missing top-level domain
+    expect(isValidEmail('test@example.')).toBe(false); // Invalid top-level domain
+    expect(isValidEmail('test@.com')).toBe(false); // Invalid domain
+    expect(isValidEmail('test.example.com')).toBe(false); // Missing @ symbol
+    expect(isValidEmail('test@example_com')).toBe(false); // Underscore in domain
+  });
+
+  test('should return false for non-string inputs', () => {
+    //@ts-ignore
+    expect(isValidEmail(123)).toBe(false);
+    //@ts-ignore
+    expect(isValidEmail(true)).toBe(false);
+    //@ts-ignore
+    expect(isValidEmail(null)).toBe(false);
+    //@ts-ignore
+    expect(isValidEmail(undefined)).toBe(false);
+    //@ts-ignore
+    expect(isValidEmail({})).toBe(false);
+    //@ts-ignore
+    expect(isValidEmail([])).toBe(false);
+  });
+});
+
+const validFormData = sample[0] as InvoiceDraft;
+
+const missingClientName = {
+  ...validFormData,
+  clientName: '', // Missing clientName
+};
+
+const missingClientEmail = {
+  ...validFormData,
+  clientEmail: '', // Missing clientEmail
+};
+
+const missingSenderStreet = {
+  ...validFormData,
+  senderAddress: {
+    ...validFormData.senderAddress,
+    street: '', // Missing street in senderAddress
+  },
+};
+
+const missingClientStreet = {
+  ...validFormData,
+  clientAddress: {
+    ...validFormData.clientAddress,
+    street: '', // Missing street in clientAddress
+  },
+};
+
+const missingItems = {
+  ...validFormData,
+  items: [], // Empty items array
+};
+
+const invalidClientEmail = {
+  ...validFormData,
+  clientEmail: 'invalid-email', // Invalid clientEmail
+};
+
+describe('findFormErrors', () => {
+  test('should return an empty array for valid form data', () => {
+    const errors = findFormErrors(validFormData);
+    expect(errors).toHaveLength(0);
+  });
+
+  test('should return an array of missing fields', () => {
+    const errors = findFormErrors(missingClientName);
+    expect(errors).toContain('clientName');
+
+    const errors2 = findFormErrors(missingClientEmail);
+    expect(errors2).toContain('clientEmail');
+
+    // as any use to ignore type checking
+    const errors3 = findFormErrors(missingSenderStreet as any);
+    expect(errors3).toContain('senderAddress-street');
+
+    // as any use to ignore type checking
+    const errors4 = findFormErrors(missingClientStreet as any);
+    expect(errors4).toContain('clientAddress-street');
+
+    const errors5 = findFormErrors(missingItems);
+    expect(errors5).toContain('items');
+  });
+
+  test('should return an array with invalid clientEmail', () => {
+    const errors = findFormErrors(invalidClientEmail);
+    expect(errors).toContain('clientEmail');
   });
 });

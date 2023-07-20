@@ -20,7 +20,8 @@ export const useInvoices = () => {
   const saveDraft = (data: InvoiceDraft) =>
     dispatch(reduxInvoiceDraft({...data, status: InvoiceStatuses.Draft}));
 
-  const submitInvoice = (data: Invoice) => dispatch(reduxInvoiceSubmit(data));
+  const submitInvoice = (data: Invoice) =>
+    dispatch(reduxInvoiceSubmit({...data, status: InvoiceStatuses.Pending}));
 
   const deleteInvoice = (data: InvoiceDraft) =>
     dispatch(reduxInvoiceDelete(data));

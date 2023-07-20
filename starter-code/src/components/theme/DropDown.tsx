@@ -22,6 +22,8 @@ export const DropDown: React.FC<DropDownProps> = React.memo(
     showReset,
     label,
     resetLabel,
+    error,
+    borderColor,
     ...props
   }) => {
     const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -61,6 +63,12 @@ export const DropDown: React.FC<DropDownProps> = React.memo(
             paddingHorizontal={themeConfig.padding.semiSmall}
             backgroundColor={backgroundColor || palette.backgroundSecondary}
             row
+            borderColor={
+              error
+                ? themeConfig.colors.accent2
+                : borderColor || palette.backgroundDisabled
+            }
+            borderWidth={1}
             alignItems={'center'}
             justifyContent={'space-between'}>
             <Text

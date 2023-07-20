@@ -1,15 +1,27 @@
 import {useEffect, useState} from 'react';
 import {
+  Invoice,
   InvoiceAddress,
   InvoiceDraft,
   InvoiceFormEnum,
   InvoiceItem,
 } from '../types/invoice';
-import {calculateItemTotal, calculatePaymentDue} from '../utils/invoices';
+import {
+  calculateItemTotal,
+  calculatePaymentDue,
+  findFormErrors,
+  totalSum,
+} from '../utils/invoices';
 import {initialInvoiceItemData} from '../configs/invoiceConfig';
+import {useInvoices} from './useInvoices';
+import {useNavigation} from '@react-navigation/native';
 
 export const useInvoiceForm = (params: InvoiceDraft) => {
   const [formData, setFormData] = useState<InvoiceDraft>(params);
+  const [errors, setErrors] = useState<string[]>([]);
+  const {saveDraft, submitInvoice} = useInvoices();
+  const navigation = useNavigation();
+
   const changeFormData = (
     property: InvoiceFormEnum,
     value: string | number | InvoiceAddress | InvoiceItem[],
@@ -54,6 +66,13 @@ export const useInvoiceForm = (params: InvoiceDraft) => {
     changeFormData(InvoiceFormEnum.items, newItems);
   };
 
+  const checkValidation = () => {
+    // this is a very general validation that just check the
+    const newErrors = findFormErrors(formData);
+    setErrors(newErrors);
+    return newErrors.length === 0;
+  };
+
   useEffect(() => {
     !!formData.paymentTerms &&
       formData.createdAt &&
@@ -63,5 +82,32 @@ export const useInvoiceForm = (params: InvoiceDraft) => {
       );
   }, [formData.createdAt, formData.paymentTerms]);
 
-  return {formData, changeFormData, changeItemValues, addItem, deleteItem};
+  useEffect(() => {
+    !!formData.items?.filter(item => item.total || 0).length &&
+      changeFormData(InvoiceFormEnum.total, totalSum(formData.items));
+  }, [formData.createdAt, formData.items, formData.paymentTerms]);
+
+  const draftForm = () => {
+    saveDraft(formData as Invoice);
+    navigation.goBack();
+  };
+
+  const submitForm = () => {
+    if (checkValidation()) {
+      submitInvoice(formData as Invoice);
+      navigation.goBack();
+    }
+  };
+
+  return {
+    formData,
+    changeFormData,
+    changeItemValues,
+    addItem,
+    deleteItem,
+    errors,
+    checkValidation,
+    draftForm,
+    submitForm,
+  };
 };

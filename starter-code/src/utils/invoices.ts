@@ -1,5 +1,12 @@
 import moment from 'moment/moment';
 import {dateConfig} from '../configs/dateConfig';
+import {
+  InvoiceAddress,
+  InvoiceDraft,
+  InvoiceFormEnum,
+  InvoiceItem,
+} from '../types/invoice';
+import {initialInvoiceAddress} from '../configs/invoiceConfig';
 
 export function generateId(): string {
   const randomLetters = Array.from({length: 2}, () =>
@@ -73,4 +80,63 @@ export const calculateItemTotal = (
   }
 
   return parsedQty * parsedPrice;
+};
+
+export const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  return emailRegex.test(email);
+};
+
+export const findFormErrors = (formData: InvoiceDraft) => {
+  const newErrors: string[] = [];
+
+  const requiredFields = Object.keys(InvoiceFormEnum) as Array<
+    keyof InvoiceDraft
+  >;
+  requiredFields.forEach(field => {
+    if (!formData[field]) {
+      newErrors.push(field);
+    }
+  });
+
+  const addressKeys = Object.keys(initialInvoiceAddress) as Array<
+    keyof InvoiceAddress
+  >;
+
+  // To check is the address information for sender and client entered correctly
+  [InvoiceFormEnum.senderAddress, InvoiceFormEnum.clientAddress].forEach(
+    partyKey => {
+      addressKeys.forEach(key => {
+        const addressData = formData?.[partyKey] as InvoiceAddress | undefined;
+        if (!addressData?.[key]) {
+          newErrors.push(partyKey + '-' + key);
+        }
+      });
+    },
+  );
+
+  // to check the content of the items
+  if (!formData.items?.length) {
+    newErrors.push(InvoiceFormEnum.items);
+  } else {
+    formData.items.forEach((item, index) => {
+      if (!item?.price || !item?.name || !item?.quantity) {
+        newErrors.push(InvoiceFormEnum.items + '-' + index);
+      }
+    });
+  }
+
+  if (formData.clientEmail && !isValidEmail(formData.clientEmail)) {
+    newErrors.push(InvoiceFormEnum.clientEmail);
+  }
+  return newErrors;
+};
+
+export const totalSum = (items: InvoiceItem[]) => {
+  return items.reduce((acc, item) => {
+    // 'as any' is used to avoid type checking for NaN
+    const totalValue = parseFloat(item.total as any);
+
+    return acc + (isNaN(totalValue) ? 0 : totalValue);
+  }, 0);
 };

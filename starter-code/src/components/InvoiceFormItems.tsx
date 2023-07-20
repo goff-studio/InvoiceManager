@@ -14,21 +14,18 @@ export const InvoiceFormItems: React.FC<InvoiceFormItemsProps> = ({
   items,
   onChange,
   onDeletePress,
+  errors,
   onAddPress,
   ...props
 }) => {
   const {palette} = usePalette();
 
-  const renderEmptyState = () => {
-    if (!items?.length) {
-      return null;
-    }
-    return (
-      <View>
-        <Text>No item added yet</Text>
-      </View>
-    );
-  };
+  // Validation method will mark the index of the item that has error
+  const errorsIndexes = errors
+    ?.filter(error => error.includes('-'))
+    .map(error => error.split('-')[1]);
+
+  const isEmptyError = errors?.some(error => !error.includes('-'));
 
   const renderItems = () =>
     (items || []).map((item, index) => (
@@ -36,12 +33,14 @@ export const InvoiceFormItems: React.FC<InvoiceFormItemsProps> = ({
         key={'item-id-' + index}
         marginTop={index ? themeConfig.padding.semiLarge : undefined}>
         <TextInput
+          error={errorsIndexes?.includes(index.toString())}
           onChangeText={text => onChange(index, text, 'name')}
           value={item?.name || ''}
           label={'Item Name'}
         />
         <View row alignItems={'flex-end'} justifyContent={'flex-end'}>
           <TextInput
+            error={errorsIndexes?.includes(index.toString())}
             onChangeText={text => onChange(index, text, 'quantity')}
             value={item?.quantity?.toString() || ''}
             keyboardType={'numeric'}
@@ -49,6 +48,7 @@ export const InvoiceFormItems: React.FC<InvoiceFormItemsProps> = ({
             label={'Qty.'}
           />
           <TextInput
+            error={errorsIndexes?.includes(index.toString())}
             onChangeText={text => onChange(index, text, 'price')}
             keyboardType={'numeric'}
             label={'Price'}
@@ -58,6 +58,7 @@ export const InvoiceFormItems: React.FC<InvoiceFormItemsProps> = ({
             marginLeft={themeConfig.padding.small}
           />
           <TextInput
+            error={errorsIndexes?.includes(index.toString())}
             editable={false}
             keyboardType={'numeric'}
             label={'Total'}
@@ -83,7 +84,11 @@ export const InvoiceFormItems: React.FC<InvoiceFormItemsProps> = ({
         color={palette.textSecondary}>
         Item List
       </Text>
-      {renderEmptyState()}
+      {isEmptyError && (
+        <Text color={themeConfig.colors.accent2} textAlign={'center'}>
+          You need to add some items
+        </Text>
+      )}
       {renderItems()}
       <Button
         variant={ButtonVariants.SECONDARY}
