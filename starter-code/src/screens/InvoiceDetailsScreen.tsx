@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, Screen, Text, themeConfig, View} from '../components/theme';
 import {BackButton} from '../components/BackButton';
 import {ButtonVariants, TextVariants} from '../types/theme';
@@ -10,6 +10,7 @@ import {InvoiceDetailsGeneralInfo} from '../components/InvoiceDetailsGeneralInfo
 import {Button} from '../components/theme/Button';
 import {InvoiceStatuses} from '../types/invoice';
 import {useInvoices} from '../hooks/useInvoices';
+import {ErrorConfirmation} from '../components/ErrorConfirmation';
 
 type InvoiceDetailsScreen = RouteProp<
   NavigationParamsList,
@@ -18,7 +19,11 @@ type InvoiceDetailsScreen = RouteProp<
 export const InvoicesDetailsScreen = () => {
   const {params} = useRoute<InvoiceDetailsScreen>();
   const navigation = useNavigation();
-
+  const [isDeleteVisible, setIsDeleteVisible] = useState(false);
+  const handleOpenDelete = () => {
+    setIsDeleteVisible(true);
+  };
+  const handleCloseDelete = () => setIsDeleteVisible(false);
   const {markAsPaid, invoices, deleteInvoice} = useInvoices();
   const invoice = invoices.find(item => item.id === params.id);
   const handleEdit = () =>
@@ -27,6 +32,7 @@ export const InvoicesDetailsScreen = () => {
       params as never,
     );
   const handleDelete = () => {
+    setIsDeleteVisible(false);
     deleteInvoice(params);
     navigation.goBack();
   };
@@ -43,7 +49,7 @@ export const InvoicesDetailsScreen = () => {
         label={'Edit'}
       />
       <Button
-        onPress={handleDelete}
+        onPress={handleOpenDelete}
         variant={ButtonVariants.ACCENT}
         label={'Delete'}
       />
@@ -67,6 +73,11 @@ export const InvoicesDetailsScreen = () => {
         <InvoiceDetailsGeneralInfo invoice={params} />
         {!!params.items?.length && <InvoiceDetailsItems invoice={params} />}
       </Card>
+      <ErrorConfirmation
+        onSuccess={handleDelete}
+        onRequestClose={handleCloseDelete}
+        isVisible={isDeleteVisible}
+      />
     </Screen>
   );
 };

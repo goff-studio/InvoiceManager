@@ -175,3 +175,7 @@ export interface CalendarProps extends ViewProps {
   onChange: (date: string) => unknown;
   error?: boolean;
 }
+
+export interface ErrorConfirmationProps extends ModalProps {
+  onSuccess: () => unknown;
+}
