@@ -3,9 +3,14 @@ import {
   ColorValue,
   DimensionValue,
   FlexAlignType,
+  ImageProps,
+  TextInputProps as RNTextInputProps,
   TextProps as RNTextProps,
+  TextStyle,
   ViewProps as RNViewProps,
+  ViewStyle,
 } from 'react-native';
+import {ImageSourcePropType} from 'react-native/Libraries/Image/Image';
 import {ReactNode} from 'react';
 
 export enum TextVariants {
@@ -104,6 +109,18 @@ export interface ViewProps extends RNViewProps {
   onPress?: () => unknown;
 }
 
+export interface AvatarProps extends Omit<ImageProps, 'source'> {
+  size?: number;
+  source?: ImageSourcePropType;
+}
+
+export interface IconsProps extends ViewProps {
+  size?: number;
+  color?: ColorValue;
+  path?: string;
+  icon?: ReactNode;
+}
+
 export enum ButtonVariants {
   PRIMARY,
   SECONDARY,
@@ -117,4 +134,34 @@ export interface ButtonProps extends ViewProps {
   circleIcon?: boolean;
   label?: string;
   full?: boolean;
+}
+export interface ModalProps {
+  onRequestClose?: () => unknown;
+  isVisible?: boolean;
+  children?: ReactNode;
+  animationIn?: string;
+  animationOut?: string;
+  backdropOpacity?: number;
+  onModalShow?: () => unknown;
+  onModalHide?: () => unknown;
+}
+
+export interface DropDownProps extends Omit<ViewProps, 'onPress'> {
+  placeholder: string;
+  items?: string[];
+  label?: string;
+  onChange?: (item: string | undefined) => unknown;
+  initialValue?: string;
+  showReset?: boolean;
+  resetLabel?: string;
+}
+
+export interface TextInputProps extends InputProps, RNTextInputProps {
+  paddingVertical?: DimensionValue;
+  paddingHorizontal?: DimensionValue;
+  marginLeft?: DimensionValue;
+  marginRight?: DimensionValue;
+  containerStyle?: ViewStyle;
+  labelStyle?: TextStyle;
+  label?: string;
 }
