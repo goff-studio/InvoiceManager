@@ -41,7 +41,7 @@ export const Screen: React.FC<ScreenProps> = ({
       {!!footer && (
         <View
           paddingBottom={themeConfig.padding.xSmall}
-          backgroundColor={palette.backgroundDisabled}>
+          backgroundColor={palette.backgroundSecondary}>
           {footer}
         </View>
       )}

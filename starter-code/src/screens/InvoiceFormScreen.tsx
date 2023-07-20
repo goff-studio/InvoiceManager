@@ -7,11 +7,15 @@ import {NavigationParamsList, NavigationScreens} from '../types/navigation';
 import {StyleSheet} from 'react-native';
 import {usePalette} from '../hooks/usePalette';
 import {InvoiceFormAddress} from '../components/InvoiceFormAddress';
-import {InvoiceFormEnum} from '../types/invoice';
+import {Invoice, InvoiceFormEnum} from '../types/invoice';
 import {InvoiceFormTerms} from '../components/InvoiceFormTerms';
 import {useInvoiceForm} from '../hooks/useInvoiceForm';
 import {InvoiceFormItems} from '../components/InvoiceFormItems';
 import {Calendar} from '../components/theme/Calendar';
+import {FooterDraftSubmit} from '../components/FooterDraftSubmit';
+import {useInvoices} from '../hooks/useInvoices';
+import {initialInvoiceAddress} from '../configs/invoiceConfig';
+import {FooterSubmit} from '../components/FooterSubmit';
 
 type InvoiceFormScreenProps = RouteProp<
   NavigationParamsList,
@@ -21,11 +25,24 @@ export const InvoicesFormScreen = () => {
   const {params} = useRoute<InvoiceFormScreenProps>();
   const {formData, changeFormData, changeItemValues, addItem, deleteItem} =
     useInvoiceForm(params);
+  const {saveDraft, submitInvoice} = useInvoices();
   const {palette} = usePalette();
   const isEdit = Object.keys(params).length > 1;
+  const isValid = false;
+  const renderDraftFooter = (
+    <FooterDraftSubmit
+      onDraft={() => saveDraft(formData)}
+      onSubmit={() => isValid && submitInvoice(formData as Invoice)}
+    />
+  );
+  const renderFooter = (
+    <FooterSubmit
+      onSubmit={() => isValid && submitInvoice(formData as Invoice)}
+    />
+  );
 
   return (
-    <Screen scrollable>
+    <Screen scrollable footer={isEdit ? renderFooter : renderDraftFooter}>
       <BackButton />
       {!isEdit && <Text variant={TextVariants.H2}>New Invoice</Text>}
       {isEdit && (
@@ -44,7 +61,7 @@ export const InvoicesFormScreen = () => {
       </Text>
       <InvoiceFormAddress
         onChange={changeFormData}
-        value={formData?.senderAddress}
+        value={formData?.senderAddress || initialInvoiceAddress}
         type={InvoiceFormEnum.senderAddress}
       />
       <Text
@@ -67,8 +84,8 @@ export const InvoicesFormScreen = () => {
       />
       <InvoiceFormAddress
         onChange={changeFormData}
-        value={formData?.clientAddress}
-        type={InvoiceFormEnum.senderAddress}
+        value={formData?.clientAddress || initialInvoiceAddress}
+        type={InvoiceFormEnum.clientAddress}
       />
       <Calendar
         placeholder={'Please select'}

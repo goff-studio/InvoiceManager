@@ -17,7 +17,8 @@ export const useInvoices = () => {
 
   const editInvoice = (data: InvoiceDraft) => dispatch(reduxInvoiceEdit(data));
 
-  const saveDraft = (data: InvoiceDraft) => dispatch(reduxInvoiceDraft(data));
+  const saveDraft = (data: InvoiceDraft) =>
+    dispatch(reduxInvoiceDraft({...data, status: InvoiceStatuses.Draft}));
 
   const submitInvoice = (data: Invoice) => dispatch(reduxInvoiceSubmit(data));
 

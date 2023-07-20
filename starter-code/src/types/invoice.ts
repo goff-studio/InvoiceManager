@@ -115,3 +115,8 @@ export interface InvoiceFormItemsProps extends ViewProps {
     property: 'name' | 'quantity' | 'price',
   ) => unknown;
 }
+
+export interface FooterDraftSubmitProps extends ViewProps {
+  onDraft?: () => unknown;
+  onSubmit: () => unknown;
+}

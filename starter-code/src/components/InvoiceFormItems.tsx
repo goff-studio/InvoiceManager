@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, TextInput, themeConfig, View} from './theme';
 import {Button} from './theme/Button';
 import PlusIcon from '../assets/icon-plus.svg';
-import {TextVariants} from '../types/theme';
+import {ButtonVariants, TextVariants} from '../types/theme';
 import {usePalette} from '../hooks/usePalette';
 import {InvoiceFormItemsProps} from '../types/invoice';
 import Delete from '../assets/icon-delete.svg';
@@ -86,6 +86,7 @@ export const InvoiceFormItems: React.FC<InvoiceFormItemsProps> = ({
       {renderEmptyState()}
       {renderItems()}
       <Button
+        variant={ButtonVariants.SECONDARY}
         onPress={onAddPress}
         marginTop={themeConfig.padding.semiLarge}
         icon={<PlusIcon />}
