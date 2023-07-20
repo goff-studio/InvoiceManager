@@ -165,3 +165,10 @@ export interface TextInputProps extends InputProps, RNTextInputProps {
   labelStyle?: TextStyle;
   label?: string;
 }
+
+export interface CalendarProps extends ViewProps {
+  label?: string;
+  value?: string;
+  placeholder?: string;
+  onChange: (date: string) => unknown;
+}

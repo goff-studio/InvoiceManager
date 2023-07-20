@@ -4,7 +4,7 @@ import {InputContainer} from '../InputContainer';
 import {View} from './View';
 import {themeConfig} from '../../configs/themeConfig';
 import {Text} from './Text';
-import {TextVariants} from '../../types/theme';
+import {CalendarProps, TextVariants} from '../../types/theme';
 import {capitalizeFirstChar} from '../../utils/invoices';
 import {IconWrapper} from '../IconWrapper';
 import CalendarIcon from '../../assets/icon-calendar.svg';
@@ -15,7 +15,7 @@ import {Card} from './Card';
 import moment from 'moment';
 import {dateConfig} from '../../configs/dateConfig';
 
-export const Calendar: React.FC<any> = ({
+export const Calendar: React.FC<CalendarProps> = ({
   label,
   backgroundColor,
   value,
@@ -63,7 +63,7 @@ export const Calendar: React.FC<any> = ({
           paddingHorizontal={themeConfig.radius.xSmall}>
           <RNCalendar
             markedDates={{
-              [value]: {selected: true, disableTouchEvent: true},
+              [value as string]: {selected: true, disableTouchEvent: true},
             }}
             current={value}
             onDayPress={handleChangeDate}
