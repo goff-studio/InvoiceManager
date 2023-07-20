@@ -35,7 +35,7 @@ export const InvoiceStatus: React.FC<InvoiceStatusProps> = ({
         backgroundColor={color}
       />
       <Text variant={TextVariants.H4} color={color}>
-        {capitalizeFirstChar(status as string)}
+        {capitalizeFirstChar((status as string) || InvoiceStatuses.Draft)}
       </Text>
     </View>
   );

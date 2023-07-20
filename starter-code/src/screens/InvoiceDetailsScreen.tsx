@@ -1,7 +1,6 @@
 import React from 'react';
-import {Screen, Text, themeConfig, View} from '../components/theme';
+import {Card, Screen, Text, themeConfig, View} from '../components/theme';
 import {BackButton} from '../components/BackButton';
-import {Card} from '../components/theme';
 import {ButtonVariants, TextVariants} from '../types/theme';
 import {InvoiceStatus} from '../components/InvoiceStatus';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -66,7 +65,7 @@ export const InvoicesDetailsScreen = () => {
       </Card>
       <Card marginVertical={themeConfig.padding.semiSmall}>
         <InvoiceDetailsGeneralInfo invoice={params} />
-        <InvoiceDetailsItems invoice={params} />
+        {!!params.items?.length && <InvoiceDetailsItems invoice={params} />}
       </Card>
     </Screen>
   );

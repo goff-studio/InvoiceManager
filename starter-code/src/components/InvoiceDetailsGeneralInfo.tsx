@@ -25,7 +25,11 @@ export const InvoiceDetailsGeneralInfo: React.FC<InvoiceDetailsProps> = ({
         style={styles.paragraph}
         marginTop={themeConfig.padding.semiLarge}
         variant={TextVariants.Body1}>
-        {`${invoice.senderAddress.street}\n${invoice.senderAddress.country}\n${invoice.senderAddress.postCode}\n${invoice.senderAddress.city}`}
+        {`${invoice.senderAddress?.street || '-'}\n${
+          invoice.senderAddress?.country || '-'
+        }\n${invoice.senderAddress?.postCode || '-'}\n${
+          invoice.senderAddress?.city || '-'
+        }`}
       </Text>
       <View row marginTop={themeConfig.padding.semiLarge}>
         <View flex>
@@ -33,13 +37,17 @@ export const InvoiceDetailsGeneralInfo: React.FC<InvoiceDetailsProps> = ({
           <Text
             marginTop={themeConfig.padding.xxSmall}
             variant={TextVariants.H3}>
-            {moment(invoice.createdAt).format(dateConfig.renderedDateFormat)}
+            {invoice.createdAt
+              ? moment(invoice.createdAt).format(dateConfig.renderedDateFormat)
+              : '-'}
           </Text>
           <Text marginTop={themeConfig.padding.semiLarge}>Payment Due</Text>
           <Text
             marginTop={themeConfig.padding.xxSmall}
             variant={TextVariants.H3}>
-            {moment(invoice.paymentDue).format(dateConfig.renderedDateFormat)}
+            {invoice.paymentDue
+              ? moment(invoice.paymentDue).format(dateConfig.renderedDateFormat)
+              : '-'}
           </Text>
         </View>
         <View flex>
@@ -47,20 +55,30 @@ export const InvoiceDetailsGeneralInfo: React.FC<InvoiceDetailsProps> = ({
           <Text
             marginTop={themeConfig.padding.xxSmall}
             variant={TextVariants.H3}>
-            {invoice.clientName}
+            {invoice.clientName || '-'}
           </Text>
           <Text
             style={styles.paragraph}
             marginTop={themeConfig.padding.xSmall}
             variant={TextVariants.Body1}>
-            {`${invoice.clientAddress.street}\n${invoice.clientAddress.country}\n${invoice.clientAddress.postCode}\n${invoice.clientAddress.city}`}
+            {`${invoice.clientAddress?.street || '-'}\n${
+              invoice.clientAddress?.country || '-'
+            }\n${invoice.clientAddress?.postCode || '-'}\n${
+              invoice.clientAddress?.city || '-'
+            }`}
           </Text>
         </View>
       </View>
-      <Text marginTop={themeConfig.padding.semiLarge}>Send to</Text>
-      <Text variant={TextVariants.H3} marginTop={themeConfig.padding.xxSmall}>
-        {invoice.clientEmail}
-      </Text>
+      {invoice.clientEmail && (
+        <>
+          <Text marginTop={themeConfig.padding.semiLarge}>Send to</Text>
+          <Text
+            variant={TextVariants.H3}
+            marginTop={themeConfig.padding.xxSmall}>
+            {invoice.clientEmail}
+          </Text>
+        </>
+      )}
     </View>
   );
 };
