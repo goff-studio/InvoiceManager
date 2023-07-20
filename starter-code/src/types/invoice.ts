@@ -1,3 +1,5 @@
+import {ViewProps} from './theme';
+
 export enum InvoiceStatuses {
   Draft = 'draft',
   Pending = 'pending',
@@ -63,4 +65,53 @@ export interface InvoiceReduxActions {
 export interface InvoiceDataReduxActions {
   type: InvoiceActionTypes;
   data: InvoiceDraft[];
+}
+
+export interface InvoiceListItemProps extends ViewProps {
+  invoice: InvoiceDraft;
+}
+export interface InvoiceDetailsProps extends ViewProps {
+  invoice: Invoice;
+}
+export interface InvoiceStatusProps extends ViewProps {
+  status?: InvoiceStatuses;
+}
+
+export interface InvoicesListHeaderProps extends ViewProps {
+  total: number;
+  onFilterSelected: (filter: string | undefined) => unknown;
+  initialFilter?: string;
+}
+
+export interface InvoiceFormAddressProps extends ViewProps {
+  onChange: (
+    type: InvoiceFormEnum.senderAddress | InvoiceFormEnum.clientAddress,
+    info: InvoiceAddress,
+  ) => unknown;
+  type: InvoiceFormEnum.senderAddress | InvoiceFormEnum.clientAddress;
+  value?: InvoiceAddress;
+}
+
+export interface InvoiceFormTermsProps extends ViewProps {
+  onChange: (
+    type: InvoiceFormEnum.paymentTerms,
+    value: string | number,
+  ) => unknown;
+  invoice: InvoiceDraft;
+}
+
+export type TermsOptionType = {
+  label: string;
+  value: number;
+};
+
+export interface InvoiceFormItemsProps extends ViewProps {
+  items: InvoiceItem[];
+  onAddPress: () => unknown;
+  onDeletePress: (i: number) => unknown;
+  onChange: (
+    index: number,
+    value: string,
+    property: 'name' | 'quantity' | 'price',
+  ) => unknown;
 }
