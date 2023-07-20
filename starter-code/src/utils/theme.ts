@@ -3,12 +3,11 @@ import {ButtonVariants, FontFamilyValue, PaletteVariants} from '../types/theme';
 import {themeConfig} from '../configs/themeConfig';
 import {Theme} from 'react-native-calendars/src/types';
 
-
 export const convertToRgba = (color: ColorValue, opacity = 0.9): string => {
   if (typeof color === 'string' && color.startsWith('#')) {
     const hexColor = color.slice(1);
     const [red, green, blue] = [0, 2, 4].map(startIndex =>
-        parseInt(hexColor.substr(startIndex, 2), 16),
+      parseInt(hexColor.substr(startIndex, 2), 16),
     );
     return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
   }
@@ -16,8 +15,8 @@ export const convertToRgba = (color: ColorValue, opacity = 0.9): string => {
 };
 
 export const generateButtonVariant = (
-    variant: ButtonVariants,
-    palette: PaletteVariants,
+  variant: ButtonVariants,
+  palette: PaletteVariants,
 ) => {
   let backgroundColor;
   let textColor;
