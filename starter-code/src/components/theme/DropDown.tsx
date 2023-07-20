@@ -3,7 +3,7 @@ import {Text} from './Text';
 import {ModalMenu} from './ModalMenu';
 import {View} from './View';
 import {DropDownProps, TextVariants} from '../../types/theme';
-import Arrow from '../../assets/ic-arrow-down.svg';
+import Arrow from '../../assets/icon-arrow-down.svg';
 import {IconWrapper} from '../IconWrapper';
 import {usePalette} from '../../hooks/usePalette';
 import {themeConfig} from '../../configs/themeConfig';
