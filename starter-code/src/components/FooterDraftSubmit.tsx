@@ -28,22 +28,26 @@ export const FooterDraftSubmit: React.FC<FooterDraftSubmitProps> = ({
       {...props}
       row
       justifyContent={'space-between'}
+      alignItems={'center'}
       paddingHorizontal={themeConfig.padding.medium}
       paddingVertical={themeConfig.padding.semiSmall}>
       <Button
+        paddingHorizontal={themeConfig.padding.xSmall}
         onPress={handleCancel}
         variant={ButtonVariants.SECONDARY}
         label={'Discard'}
       />
       <Button
+        paddingHorizontal={themeConfig.padding.xSmall}
         onPress={handleDraft}
         variant={ButtonVariants.DARK}
         label={'Save as Draft'}
       />
       <Button
+        paddingHorizontal={themeConfig.padding.xSmall}
         onPress={handleSubmit}
         variant={ButtonVariants.PRIMARY}
-        label={'Submit & Send'}
+        label={'Save & Send'}
       />
     </View>
   );
