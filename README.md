@@ -1,64 +1,91 @@
-### Objective
+![img.png](img.png)
+# Invoice App
+The Invoice App (named as **starter**, when you install it) is a small mobile application that allows users to issue invoices on their phones. The app provides a user-friendly interface for creating, editing, and managing invoices. It is built using React Native and TypeScript, ensuring a robust and type-safe development process.
 
-Your challenge is to build out this React Native invoicing app for KioskBuddy's accounting department and implement all functionality outlined in the **Expected Behaviour** section.
+## Purpose
 
-### Brief
+The purpose of this project is to demonstrate the ability to develop a mobile application for invoice management. It serves as a skill assessment task for Kiosk Buddy, a company focused on providing innovative solutions for businesses.
 
-Your task is to build out the project to the design files provided in the `/designs` folder. The functionality outlined in **Expected Behaviour** is more important than implementing the designs pixel-perfect.
+## Features
 
-All the required assets for this project are in the `/assets` folder. The assets are already exported for the correct screen size and optimized.
+- Create and edit invoices with detailed information such as client details, items, and payment terms.
+- Automatic calculation of payment due date based on the invoice's creation date and payment terms.
+- Efficient handling of invoice items, including quantity, price, and total calculations.
+- Support for adding and deleting items from the invoice.
+- Real-time validation of input fields to ensure accurate and error-free invoice data.
+- Intuitive user interface, following design guidelines for a seamless user experience.
 
-The design system file will give you more information about the various colors, fonts, and styles used in this project.
+## Project Structure
 
-We provide the data in a local `data.json` file, so use that to populate the content on first load.
+The project follows a well-organized structure to maintain code readability and scalability. Key directories include:
 
-### Tasks
+- `src`: Contains the source code of the application, including components, hooks, types, utils, and configs.
+- `__tests__`: Holds test cases for the project.
 
-Your users should be able to:
+## How to Run
 
-- View the optimal layout for the app depending on their device's screen size
-- Create, read, update, and delete invoices
-- **Bonus**: Receive form validations when trying to create/edit an invoice
-- **Bonus**: Save draft invoices, and mark pending invoices as paid
-- **Bonus**: Filter invoices by status (draft/pending/paid)
+To run the Invoice App on your local machine, follow these steps:
 
-### Expected Behaviour
+1. Clone the repository to your local machine:
+2. Navigate to the project directory:
 
-- Creating an invoice
-  - When creating a new invoice, an ID needs to be created. Each ID should be 2 random uppercased letters followed by 4 random numbers.
-  - Invoices can be created either as drafts or as pending. Tapping on "Save as Draft" should allow the user to leave any form field blank, but should create an ID if one doesn't exist and set the status to "draft". Tapping on "Save & Send" should require all form fields to be filled in, and should set the status to "pending".
-  - Changing the Payments Terms field should set the `paymentDue` property based on the `createdAt` date plus the numbers of days set for the payment terms.
-  - The `total` should be the sum of all items on the invoice.
-- Editing an invoice
-  - When saving changes to an invoice, all fields are required when the "Save Changes" button is tapped. If the user taps on "Cancel", any unsaved changes should be reset.
-  - If the invoice being edited is a "draft", the status needs to be updated to "pending" when the "Save Changes" button is tapped. All fields are required at this stage.
-- Users should be able to mark invoices as paid by tapping on the "Mark as Paid" button. This should change the invoice's status to "paid".
-- Users should receive a confirmation modal when trying to delete invoices.
-- Feel free not to add custom styling for the date and dropdown form fields. The designs for those fields are optional extras and are mostly for illustration purposes.
+```
+cd [project]/starter-code
 
-### Deliverables
+```
 
-For iOS, include an assignment.zip file containing your compressed .app bundle **in the root of the repository**.
-Your .app bundle must represent a simulator build of your app. After running in iOS Simulator via Xcode, look in ~/Library/Developer/Xcode/DerivedData/<project-name>/Build/Products/Debug-iphonesimulator/.
-Alternatively, you may run xcodebuild -sdk iphonesimulator (if you use .xcodeproj) or xcodebuild -sdk iphonesimulator -workspace Sample.xcworkspace/ -scheme <your-scheme> -configuration Debug (if you use .xcworkspace) in your project directory, then zip the .app bundle in build/Debug-iphonesimulator/.
+1. Install the dependencies using Yarn or npm:
 
-For Android, include assignment.apk containing your app **in the root of the repository**.
-After your app is built, either via Android Studio or by running the command ./gradlew assembleDebug in your project directory, look in <project-name>/<module-name>/build/outputs/apk/.
+```
 
-### Evaluation Criteria
+npm install
+```
 
-- **React Native** best practices
-- Show us your work through your commit history
-- We're looking for you to produce working code, with enough room to demonstrate how to structure components in a small program
-- Completeness: did you complete the features?
-- Correctness: does the functionality act in sensible, thought-out ways?
-- Maintainability: is it written in a clean, maintainable way?
-- Testing: is the system adequately tested?
+1. Install Pods:
 
-### CodeSubmit
+```
+npx pod-install
+```
 
-Please organize, design, test and document your code as if it were going into production - then push your changes to the master branch. After you have pushed your code, you may submit the assignment on the assignment page.
+1. Run the project
 
-**Have fun building!** 🚀
+```
+npm run android
+npm run ios
+```
 
-The KioskBuddy Team
+Alternatively, you can run the app on an iOS or Android simulator by using the attached bundle files
+
+- assignment.apk - Android debug bundle
+- assignment-release.apk Android release bundle
+- assignment.zip - iOS debug bundle
+- assignment-release.zip - iOS debug bundle
+
+## Testing
+
+The Invoice App includes test cases to ensure code quality and functionality. The tests are written using Jest and `react-native-testing-library`. To run the tests, use the following command:
+
+```
+npm run test
+```
+
+## Technologies Used
+
+- React Native: For building the cross-platform mobile application.
+- TypeScript: For type-safe development and enhanced code quality.
+- ESLint: For code linting and enforcing coding standards.
+- Prettier: For code formatting to maintain consistent code style.
+- Jest: For writing and executing test cases.
+- `react-native-testing-library`: For testing React Native components.
+- Redux as the State Management
+- Redux Persist, to persis the data stored in redux
+
+## Note
+
+This project has been tested on various devices, including iPhone 12 Pro Max, iPhone XS Max, iPhone X, Samsung Galaxy S7, Samsung Galaxy S8, and iOS simulator iPhone SE 16.2 and Android emulator Pixel_3_XL_API_29.
+
+For any issues, feedback, or inquiries, please contact alireza@goudarzi.ws.
+
+---
+
+Thank you for considering this project! If you have any questions or need further assistance, feel free to reach out. Happy coding!
