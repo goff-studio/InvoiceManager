@@ -1,10 +1,14 @@
-![img.png](img.png)
 # Invoice App
 The Invoice App (named as **starter**, when you install it) is a small mobile application that allows users to issue invoices on their phones. The app provides a user-friendly interface for creating, editing, and managing invoices. It is built using React Native and TypeScript, ensuring a robust and type-safe development process.
 
+## Structure
+
+Codes are available in the `starter-code` directory. 
+Exported files of the designs are available in the `designs` directory
+
 ## Purpose
 
-The purpose of this project is to demonstrate the ability to develop a mobile application for invoice management. It serves as a skill assessment task for Kiosk Buddy, a company focused on providing innovative solutions for businesses.
+The purpose of this project is to demonstrate the ability to develop a mobile application for invoice management. It serves as a skill assessment task for those who may be concerned.
 
 ## Features
 
